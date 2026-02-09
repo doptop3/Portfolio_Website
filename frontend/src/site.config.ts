@@ -39,7 +39,7 @@ const config: SiteConfig = {
     },
     {
       name: 'GitHub',
-      url: 'https://github.com/doptop3',
+      url: 'https://github.com/doptop3/Portfolio_Website',
       external: true,
     },
   ],
@@ -123,7 +123,7 @@ const config: SiteConfig = {
   },
   // Social links to display in the footer.
   socialLinks: {
-    github: 'https://github.com/doptop3/',
+    github: 'https://github.com/doptop3/Portfolio_Website',
     email: 'hpopham2018@gmail.com',
     linkedin: 'https://www.linkedin.com/in/harrison-p-812383287/',
     rss: true, // Set to true to include an RSS feed link in the footer

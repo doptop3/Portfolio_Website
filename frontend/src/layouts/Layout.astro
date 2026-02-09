@@ -134,10 +134,6 @@ let generatedCss: string = cssLines.join('\n')
     <meta property="og:url" content={pageUrl} />
     <meta property="og:type" content={pageType} />
     {pageImage && <meta property="og:image" content={pageImage} />}
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content={pageTitle} />
-    <meta name="twitter:description" content={pageDescription} />
-    {pageImage && <meta name="twitter:image" content={pageImage} />}
     <meta name="keywords" content={pageKeywords} />
     <link rel="canonical" href={pageUrl} />
     <link rel="sitemap" href="/sitemap-index.xml" />

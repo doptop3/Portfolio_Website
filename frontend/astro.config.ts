@@ -1,8 +1,8 @@
 // @ts-check
 import { defineConfig } from 'astro/config'
-import tailwind from '@astrojs/tailwind';
+import tailwind from '@astrojs/tailwind'
 import sitemap from '@astrojs/sitemap'
-import react from '@astrojs/react';
+import react from '@astrojs/react'
 import mdx from '@astrojs/mdx'
 import { rehypeHeadingIds } from '@astrojs/markdown-remark'
 import rehypeAutolinkHeadings from 'rehype-autolink-headings'
@@ -17,12 +17,10 @@ import {
   rehypeTitleFigure,
 } from './src/settings-utils.js'
 import { remarkGithubCard } from './src/plugins/remark-github-card.js'
-import { fromHtmlIsomorphic } from 'hast-util-from-html-isomorphic'
 import rehypeExternalLinks from 'rehype-external-links'
 import remarkDirective from 'remark-directive' /* Handle ::: directives as nodes */
 import rehypeUnwrapImages from 'rehype-unwrap-images'
 import { remarkAdmonitions } from './src/plugins/remark-admonitions.ts' /* Add admonitions */
-import remarkCharacterDialogue from './src/plugins/remark-character-dialogue.ts'
 import remarkUnknownDirectives from './src/plugins/remark-unknown-directives.ts'
 import remarkMath from 'remark-math' /* for latex math support */
 import rehypeKatex from 'rehype-katex' /* again, for latex math support */
