@@ -1,0 +1,51 @@
+{
+  "AWSEBDockerrunVersion": "2",
+  "containerDefinitions": [
+    {
+      "name": "frontend",
+      "image": "doptop3/portfolio_website-frontend:latest",
+      "memory": 512,
+      "portMappings": [
+        {
+          "containerPort": 80,
+          "hostPort": 8088
+        }
+      ],
+      "essential": true
+    },
+    {
+      "name": "backend",
+      "image": "doptop3/portfolio_website-backend:latest",
+      "memory": 512,
+      "portMappings": [
+        {
+          "containerPort": 5000,
+          "hostPort": 5000
+        }
+      ],
+      "essential": true
+    },
+    {
+      "name": "nginx",
+      "image": "doptop3/portfolio_website-nginx:latest", 
+      "memory": 512,
+      "portMappings": [
+        {
+          "containerPort": 80,
+          "hostPort": 80  
+        }
+      ],
+      "essential": true,
+      "environment": [
+        { "name": "FRONTEND_CONTAINER", "value": "frontend" },
+        { "name": "BACKEND_CONTAINER", "value": "backend" }
+      ],
+      "volumes": [
+        {
+          "hostDirectory": "/usr/share/nginx/html",
+          "containerDirectory": "/usr/share/nginx/html"
+        }
+      ]
+    }
+  ]
+}

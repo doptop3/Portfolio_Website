@@ -1,0 +1,59 @@
+---
+import type { TocItem } from '@types'
+
+interface Props {
+  heading: TocItem
+}
+
+const {
+  heading: { children, depth, slug, text },
+} = Astro.props
+---
+
+<>
+  <li class="flex items-stretch" style={{ borderColor: 'color-mix(in srgb, var(--theme-foreground) 20%, transparent)' }}>
+    <div class="flex items-stretch">
+      {
+        Array.from({ length: depth - 1 }, (_v, _k) => (
+          <div class="toc-lines flex flex-col items-stretch">
+            <span 
+              class="top-box w-4 xl:w-3 basis-4 border-b"
+              style={{ borderColor: 'color-mix(in srgb, var(--theme-foreground) 20%, transparent)' }}
+            />
+            <span 
+              class="bottom-box w-4 min-h-1/2 xl:w-3 flex-1 border-t"
+              style={{ borderColor: 'color-mix(in srgb, var(--theme-foreground) 20%, transparent)' }}
+            />
+          </div>
+        ))
+      }
+    </div>
+    <a
+      class="inline-block line-clamp-2 ml-3 xl:ml-2 py-1 ps-1 hover:text-accent"
+      href={`#${slug}`}>{text}</a
+    >
+  </li>
+
+  {
+    children.length > 0 && depth < 3 && (
+      <li>
+        {children.map((subheading) => (
+          <Astro.self heading={subheading} />
+        ))}
+      </li>
+    )
+  }
+</>
+
+<style>
+  .toc-lines:first-child span {
+    border-left-width: 2px;
+  }
+  li:last-child .toc-lines:first-child span.bottom-box {
+    border-left-width: 0 !important;
+  }
+  li.active-heading a {
+    color: var(--theme-accent);
+    font-weight: 600;
+  }
+</style>

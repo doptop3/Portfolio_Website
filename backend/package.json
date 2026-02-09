@@ -1,0 +1,19 @@
+{
+  "name": "portfolio-website",
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "astro": "^5.3.0",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "pg": "^8.13.3",
+    "redis": "^4.7.0",
+    "snowflake-sdk": "^2.0.2"
+  }
+}

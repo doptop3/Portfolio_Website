@@ -1,0 +1,41 @@
+---
+import type { CollectionEntry } from 'astro:content'
+import { TagsGroup } from '@utils'
+
+interface Props {
+  posts: CollectionEntry<'posts'>[]
+}
+
+const { posts } = Astro.props
+const tagsGroup = await TagsGroup.build(posts)
+---
+
+<ul class="flex flex-wrap gap-x-3 gap-y-4 my-5">
+  {
+    tagsGroup.sortCollationsLargest().map((tag) => (
+    <li>
+      <a
+        href={tag.url}
+        class="flex items-center gap-2.5 py-2 pl-4 pr-3 rounded-3xl border transition-colors"
+        style={{
+          backgroundColor: 'color-mix(in srgb, var(--theme-accent) 20%, transparent)',
+          borderColor: 'color-mix(in srgb, var(--theme-accent) 50%, transparent)',
+          color: 'color-mix(in srgb, var(--theme-foreground) 90%, transparent)'
+        }}
+        onmouseenter="this.style.backgroundColor='color-mix(in srgb, var(--theme-accent) 30%, transparent)'"
+        onmouseleave="this.style.backgroundColor='color-mix(in srgb, var(--theme-accent) 20%, transparent)'"
+      >
+        {tag.title}
+        <span 
+          class="rounded-full px-2 py-1 text-xs font-semibold"
+          style={{
+            backgroundColor: 'color-mix(in srgb, var(--theme-foreground) 10%, transparent)',
+            color: 'color-mix(in srgb, var(--theme-foreground) 90%, transparent)'
+          }}
+        >
+          {tag.entries.length}
+        </span>
+      </a>
+    </li>
+  ))}
+</ul>
