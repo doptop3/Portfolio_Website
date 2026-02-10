@@ -1,0 +1,66 @@
+---
+const { frontmatter } = Astro.props;
+const showDonation = frontmatter.showDonation || false;
+
+const stripePublishableKey = 'pk_live_51Syr0Q2OT2klMVEOV31YAC3mbgfQaen6gt7Zq5Ls7yx5aXd4vrS4NYs22XLNniIeiraot947Az3DrO0gFevYmKxO00g5pDMOrc';
+const priceId = 'price_1SyrPU2OT2klMVEO20KrEuh2';
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{frontmatter.title}</title>
+  </head>
+  <body>
+    <main>
+      <slot />
+      
+      {showDonation && (
+        <div class="mt-12 text-center border-t border-gray-200 pt-8">
+          <h2 class="text-2xl font-bold mb-4">Support My Work</h2>
+          <p class="text-gray-600 mb-6 max-w-2xl mx-auto">
+            If you've found value in my content or projects, consider supporting my continued learning and development.
+          </p>
+          <button
+            id="donate-button"
+            class="inline-flex items-center gap-2 bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white font-semibold px-8 py-4 rounded-full shadow-lg hover:shadow-xl transition-all duration-200"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+            </svg>
+            <span>Support Me</span>
+          </button>
+        </div>
+      )}
+    </main>
+    
+    {showDonation && (
+      <>
+        <script is:inline src="https://js.stripe.com/v3/"></script>
+        <script define:vars={{ stripePublishableKey, priceId }}>
+          const button = document.getElementById('donate-button');
+          
+          if (button) {
+            button.addEventListener('click', async () => {
+              const stripe = window.Stripe(stripePublishableKey);
+              
+              const { error } = await stripe.redirectToCheckout({
+                lineItems: [{ price: priceId, quantity: 1 }],
+                mode: 'payment',
+                successUrl: `${window.location.origin}/thank-you`,
+                cancelUrl: window.location.href,
+              });
+              
+              if (error) {
+                console.error('Stripe error:', error);
+                alert('Something went wrong. Please try again.');
+              }
+            });
+          }
+        </script>
+      </>
+    )}
+  </body>
+</html>
