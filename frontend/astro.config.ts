@@ -18,12 +18,12 @@ import {
 } from './src/settings-utils.js'
 import { remarkGithubCard } from './src/plugins/remark-github-card.js'
 import rehypeExternalLinks from 'rehype-external-links'
-import remarkDirective from 'remark-directive' /* Handle ::: directives as nodes */
+import remarkDirective from 'remark-directive' 
 import rehypeUnwrapImages from 'rehype-unwrap-images'
 import { remarkAdmonitions } from './src/plugins/remark-admonitions.ts' /* Add admonitions */
 import remarkUnknownDirectives from './src/plugins/remark-unknown-directives.ts'
 import remarkMath from 'remark-math' /* for latex math support */
-import rehypeKatex from 'rehype-katex' /* again, for latex math support */
+import rehypeKatex from 'rehype-katex'
 import remarkGemoji from './src/plugins/remark-gemoji.ts' /* for shortcode emoji support */
 import rehypePixelated from './src/plugins/rehype-pixelated.ts' /* Custom plugin to handle pixelated images */
 

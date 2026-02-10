@@ -3,9 +3,9 @@ import type { SiteConfig } from './types.ts'
 const config: SiteConfig = {
   // Absolute URL to the root of your published site, used for generating links and sitemaps.
   site: 'https://dapop.it.com',
-  // The name of your site, used in the title and for SEO.
+  // The name of site in the title and for SEO.
   title: 'Not A Store :P',
-  // The description of your site, used for SEO and RSS feed.
+  // The description of site for SEO and RSS feed.
   description:
     'something like an astro site ig..',
   // The author of the site, used in the footer, SEO, and RSS feed.
@@ -13,11 +13,8 @@ const config: SiteConfig = {
   // Keywords for SEO, used in the meta tags.
   tags: ['Astro', 'Terminal', 'Theme', 'Dapop', 'Coding'],
   // Path to the image used for generating social media previews.
-  // Needs to be a square JPEG file due to limitations of the social card generator.
-  // Try https://squoosh.app/ to easily convert images to JPEG.
   socialCardAvatarImage: './src/content/avatar.jpg',
   // Font imported from @fontsource or elsewhere, used for the entire site.
-  // To change this see src/styles/global.css and import a different font.
   font: '"JetBrains Mono Variable", monospace',
   // For pagination, the number of posts to display per page.
   pageSize: 5,
@@ -45,19 +42,12 @@ const config: SiteConfig = {
   ],
   // The theming configuration for the site.
   themes: {
-    // The theming mode. One of "single" | "select" | "light-dark-auto".
+    // The theming mode: "single" | "select" | "light-dark-auto".
     mode: 'select',
-    // The default theme identifier, used when themeMode is "select" or "light-dark-auto".
-    // Make sure this is one of the themes listed in `themes` or "auto" for "light-dark-auto" mode.
-    default: 'ayu-dark',
+    // The default theme identifier.
+    default: 'gruvbox-dark-hard',
     // Shiki themes to bundle with the site.
     // https://expressive-code.com/guides/themes/#using-bundled-themes
-    // These will be used to theme the entire site along with syntax highlighting.
-    // To use light-dark-auto mode, only include a light and a dark theme in that order.
-    // include: [
-    //   'github-light',
-    //   'github-dark',
-    // ]
     include: [
       'andromeeda',
       'aurora-x',
@@ -126,7 +116,7 @@ const config: SiteConfig = {
     github: 'https://github.com/doptop3/Portfolio_Website',
     email: 'hpopham2018@gmail.com',
     linkedin: 'https://www.linkedin.com/in/harrison-p-812383287/',
-    rss: true, // Set to true to include an RSS feed link in the footer
+    rss: true,
   },
 }
 

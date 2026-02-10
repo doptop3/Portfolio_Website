@@ -1,0 +1,64 @@
+---
+import Layout from '@layouts/Layout.astro'; // Your main layout
+
+const stripePublishableKey = 'pk_live_51Syr0Q2OT2klMVEOV31YAC3mbgfQaen6gt7Zq5Ls7yx5aXd4vrS4NYs22XLNniIeiraot947Az3DrO0gFevYmKxO00g5pDMOrc';
+const priceId = 'price_1SyrPU2OT2klMVEO20KrEuh2';
+---
+
+<Layout title="About Me">
+  <article class="max-w-3xl mx-auto px-4 py-12 prose prose-lg">
+    <h1>About Me</h1>
+    
+    <p>
+      Efficiency is all I've wanted for most of my life, changing my habits from being afraid and only desiring what's given has just made me sick. Becoming familiar with this fear is all I've wanted, but that being said it's easier said than done. Being so confused on what to do and where to go made applying the code and experience I had understood practically impossible without the fundamentals. So I've instead spent the time to understand more about programming languages and computer architecture through tutorials like core dumped, Low level, Network chuck, Sebastian Lague, and many more. Learning fundamentals in win32 api and developing projects using OpenGL with C, using as few libraries as needed to ensure I can keep track of only the necessary components.
+    </p>
+    
+    <p>
+      There have been many projects I've made with my previous knowledge in coding which clearly had many gaps which were not desirable by me. Instead I've decided to relearn the basics from leetcode practice, combining that with everything in my projects so that I know that my code understanding can be replicated without such a need for tutorials or guidance. Doing this has shown me why I struggled with the overwhelming amount of content, with making projects only utilising the limited knowledge in the api or worse following copied tutorials/code repos instead of thinking with the language I'm working with.
+    </p>
+    
+    <p>
+      To know a broad range of tools does have benefits in research, but proving the skill in creating something from those is something else entirely. Something that I honestly am still struggling with, but with time, I have learnt new ways to remedy this. Anyway, to divert from admitting past flaws I'll speak more towards past enjoyments. Physical sports is something that's always freed my body to move around and give more towards acknowledging my own strengths. Having the fortune to eat well and exercise everyday allowed me to find experiences in multiple capacities. With snowboarding, mountain biking, football, cricket, rugby, muay thai, boxing, bouldering, I've felt very content with learning their passion. Currently i'm in shape and would prefer no other way, and do feel ready for what's to come, whatever that is.
+    </p>
+    
+    <div class="not-prose mt-16 text-center border-t border-gray-200 pt-12">
+      <h2 class="text-3xl font-bold mb-4">Support My Journey</h2>
+      <p class="text-gray-600 mb-8 max-w-2xl mx-auto">
+        If my projects or insights have helped you, consider supporting my continued growth and development. Every contribution fuels more learning and open-source work.
+      </p>
+      <button
+        id="donate-button"
+        class="inline-flex items-center gap-3 bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white font-semibold px-8 py-4 rounded-full shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-105"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+        </svg>
+        <span>Support Me</span>
+      </button>
+    </div>
+  </article>
+</Layout>
+
+<script is:inline src="https://js.stripe.com/v3/"></script>
+
+<script define:vars={{ stripePublishableKey, priceId }}>
+  const button = document.getElementById('donate-button');
+  
+  if (button) {
+    button.addEventListener('click', async () => {
+      const stripe = window.Stripe(stripePublishableKey);
+      
+      const { error } = await stripe.redirectToCheckout({
+        lineItems: [{ price: priceId, quantity: 1 }],
+        mode: 'payment',
+        successUrl: `${window.location.origin}/thank-you`,
+        cancelUrl: window.location.href,
+      });
+      
+      if (error) {
+        console.error('Stripe error:', error);
+        alert('Something went wrong. Please try again.');
+      }
+    });
+  }
+</script>

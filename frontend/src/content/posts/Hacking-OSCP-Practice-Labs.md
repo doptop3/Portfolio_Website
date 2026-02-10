@@ -205,7 +205,7 @@ showmount -e 192.168.240.100
 This confirmed no accessible mounts. While NFS services are present and running, without any accessible shares, this attack surface is effectively closed to us. In a real engagement, I might have revisited this service after obtaining credentials, as authenticated access could've revealed additional exports.
 
 ## Analysing Port 7742 - HTTP (Entry Point)
-``` title="nmap scan on open port: 7742"
+```cmd title="nmap scan on open port: 7742"
 <port protocol="tcp" portid="7742"><state state="open" reason="syn-ack" reason_ttl="61"/><service name="http" product="nginx" method="probed" conf="10"><cpe>cpe:/a:igor_sysoev:nginx</cpe></service><script id="http-methods" output="&#xa;  Supported Methods: GET HEAD POST OPTIONS"><table key="Supported Methods">
 <elem>GET</elem>
 <elem>HEAD</elem>

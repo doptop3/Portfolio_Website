@@ -15,7 +15,7 @@ export type GitHubActivityWeek = Array<GitHubActivityDay | undefined>
 export type GitHubActivityApiResponse = {
   total: {
     [year: number]: number
-    [year: string]: number // 'lastYear;
+    [year: string]: number
   }
   contributions: Array<GitHubActivityDay>
   error?: string
@@ -94,7 +94,7 @@ export const themeKeys = [
   'important',
   'caution',
   'warning',
-
+  // General styling
   'comment',
   'constant',
   'entity',

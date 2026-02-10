@@ -16,9 +16,6 @@ import { getCollection, type CollectionEntry } from 'astro:content'
 import Color from 'color'
 import { slug } from 'github-slugger'
 
-// -----------------------------
-// Basic utilities
-// -----------------------------
 export function dateString(date: Date) {
   return date.toISOString().split('T')[0]
 }
@@ -29,9 +26,6 @@ export function pick(obj: Record<string, any>, keys: string[]) {
   )
 }
 
-// -----------------------------
-// Theme color utilities
-// -----------------------------
 export function flattenThemeColors(theme: ExpressiveCodeTheme): Record<string, string> {
   const scopedThemeSettings = theme.settings.reduce(
     (acc, item) => {
@@ -49,9 +43,6 @@ export function flattenThemeColors(theme: ExpressiveCodeTheme): Record<string, s
   return { ...theme.colors, ...scopedThemeSettings }
 }
 
-// -----------------------------
-// Textmate / syntax color mapping
-// -----------------------------
 const unresolvedStyles: TextmateStyles = {
   foreground: ['editor.foreground'],
   background: ['editor.background'],
@@ -93,9 +84,6 @@ const unresolvedStyles: TextmateStyles = {
   cyan: ['terminal.ansiCyan', 'terminal.ansiBrightCyan'],
 }
 
-// -----------------------------
-// Theme resolver
-// -----------------------------
 export async function resolveThemeColorStyles(
   themes: BundledShikiTheme[],
   overrides?: ThemeOverrides,
@@ -114,7 +102,6 @@ export async function resolveThemeColorStyles(
     const loadedTheme = await loadShikiTheme(theme)
     const flattenedTheme = flattenThemeColors(loadedTheme)
     const result = {} as Record<ThemeKey, string>
-
     for (const themeKey of Object.keys(unresolvedStyles) as ThemeKey[]) {
       if (overrides?.[theme]?.[themeKey]) {
         const override = overrides[theme][themeKey]
@@ -151,9 +138,6 @@ export async function resolveThemeColorStyles(
   return Object.fromEntries(await Promise.all(resolvedThemes)) as ThemesWithColorStyles
 }
 
-// -----------------------------
-// Theme apply
-// -----------------------------
 export async function applyThemeToDocument(
   themeName: string,
   themes: BundledShikiTheme[],
@@ -174,15 +158,12 @@ export async function applyThemeToDocument(
     root.style.setProperty(`--theme-${key}`, value as string)
   })
 
-  // Ensure font var exists too
+  // Ensure font var exists
   root.style.setProperty('--theme-font', "'JetBrains Mono Variable', monospace")
 
   console.info(`[Theme applied] ${themeName}`)
 }
 
-// -----------------------------
-// Posts utilities
-// -----------------------------
 export async function getSortedPosts() {
   const allPosts = await getCollection('posts', (entry: CollectionEntry<'posts'>) =>
     import.meta.env.PROD ? entry.data.draft !== true : true,
@@ -190,9 +171,6 @@ export async function getSortedPosts() {
   return allPosts.sort((a: CollectionEntry<'posts'>, b: CollectionEntry<'posts'>) => (a.data.published < b.data.published ? -1 : 1))
 }
 
-// -----------------------------
-// Collation / grouping utilities
-// -----------------------------
 abstract class PostsCollationGroup implements CollationGroup<'posts'> {
   title: string
   url: string
@@ -270,9 +248,7 @@ export function getPostSequenceContext(
   return { index, prev, next }
 }
 
-// -----------------------------
 // Apply theme on load
-// -----------------------------
 if (typeof window !== 'undefined') {
   import('./site.config.ts').then(async ({ default: siteConfig }) => {
     const saved = localStorage.getItem('theme') || siteConfig.themes.default
