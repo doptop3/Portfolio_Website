@@ -1,9 +1,9 @@
+@import 'katex/dist/katex.css';
+@import '@pagefind/default-ui/css/ui.css';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-@import 'katex/dist/katex.css';
-@import '@pagefind/default-ui/css/ui.css';
 
 /* https://fontsource.org/fonts/jetbrains-mono/install */
 /* jetbrains-mono-latin-wght-normal */

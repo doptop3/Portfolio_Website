@@ -8,6 +8,7 @@ dotenv.config();
 const { Pool } = pkg;
 const app = express();
 const port = process.env.PORT || 5000;
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
 // PostgreSQL setup using environment variables
 const pool = new Pool({
