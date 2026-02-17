@@ -9,11 +9,11 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@stripe/stripe-js": "^8.7.0",
     "astro": "^5.3.0",
     "dotenv": "^16.6.1",
     "express": "^4.21.2",
     "pg": "^8.13.3",
-    "snowflake-sdk": "^2.0.2"
+    "snowflake-sdk": "^2.0.2",
+    "stripe": "^20.3.1"
   }
 }
