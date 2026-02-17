@@ -71,6 +71,7 @@ jobs:
         PGPASSWORD=${{ secrets.PGPASSWORD }}
         PGPORT=${{ secrets.PGPORT }}
         STRIPE_SECRET_KEY=${{ secrets.STRIPE_SECRET_KEY }}
+        STRIPE_PRICE_ID=${{ secrets.STRIPE_PRICE_ID }}
         FRONTEND_URL=${{ secrets.FRONTEND_URL }}
         EOF
         chmod 600 .env
