@@ -1,8 +1,5 @@
 ---
 import Layout from '@layouts/Layout.astro'; // Your main layout
-
-const stripePublishableKey = 'pk_live_51Syr0Q2OT2klMVEOV31YAC3mbgfQaen6gt7Zq5Ls7yx5aXd4vrS4NYs22XLNniIeiraot947Az3DrO0gFevYmKxO00g5pDMOrc';
-const priceId = 'price_1SyrPU2OT2klMVEO20KrEuh2';
 ---
 
 <Layout title="About Me">
@@ -39,25 +36,32 @@ const priceId = 'price_1SyrPU2OT2klMVEO20KrEuh2';
   </article>
 </Layout>
 
-<script is:inline src="https://js.stripe.com/v3/"></script>
+<script>
+  const button = document.getElementById('donate-button') as HTMLButtonElement;
 
-<script define:vars={{ stripePublishableKey, priceId }}>
-  const button = document.getElementById('donate-button');
-  
   if (button) {
     button.addEventListener('click', async () => {
-      const stripe = window.Stripe(stripePublishableKey);
-      
-      const { error } = await stripe.redirectToCheckout({
-        lineItems: [{ price: priceId, quantity: 1 }],
-        mode: 'payment',
-        successUrl: `${window.location.origin}/thank-you`,
-        cancelUrl: window.location.href,
-      });
-      
-      if (error) {
-        console.error('Stripe error:', error);
+      button.disabled = true;
+      button.querySelector('span')!.textContent = 'Redirecting...';
+
+      try {
+        const response = await fetch('/api/create-checkout-session', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+        });
+
+        const data = await response.json();
+
+        if (data.url) {
+          window.location.href = data.url;
+        } else {
+          throw new Error('No URL returned');
+        }
+      } catch (err) {
+        console.error(err);
         alert('Something went wrong. Please try again.');
+        button.disabled = false;
+        button.querySelector('span')!.textContent = 'give a dollar';
       }
     });
   }

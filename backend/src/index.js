@@ -22,6 +22,28 @@ const pool = new Pool({
   }
 });
 
+// Stripe integration using checkout sessions
+app.post('/api/create-checkout-session', async (req, res) => {
+  try {
+    const session = await stripe.checkout.sessions.create({
+      line_items: [
+        {
+          price: process.env.STRIPE_PRICE_ID,
+          quantity: 1,
+        },
+      ],
+      mode: 'payment',
+      success_url: `${process.env.FRONTEND_URL}/thank-you`,
+      cancel_url: `${process.env.FRONTEND_URL}/about`,
+    });
+
+    res.json({ url: session.url });
+  } catch (error) {
+    console.error('Stripe error:', error);
+    res.status(500).json({ error: 'Failed to create checkout session' });
+  }
+});
+
 // Test route to fetch users
 app.get('/api/users', async (req, res) => {
   try {
