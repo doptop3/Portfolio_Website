@@ -1,6 +1,7 @@
 import express from 'express';
 import pkg from 'pg';
 import dotenv from 'dotenv';
+import Stripe from 'stripe';
 
 // Load environment variables from .env file
 dotenv.config();
@@ -8,7 +9,7 @@ dotenv.config();
 const { Pool } = pkg;
 const app = express();
 const port = process.env.PORT || 5000;
-const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
 // PostgreSQL setup using environment variables
 const pool = new Pool({
