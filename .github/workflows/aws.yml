@@ -120,7 +120,6 @@ jobs:
         docker-compose pull # frontend backend
 
         echo "Restarting containers..."
-        docker-compose down
         docker-compose up -d --remove-orphans
 
         echo "Wait for services..."
